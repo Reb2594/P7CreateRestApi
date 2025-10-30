@@ -1,7 +1,13 @@
-using Dot.Net.WebApi.Data;
 using Microsoft.EntityFrameworkCore;
+using P7CreateRestApi.Data;
+using AutoMapper;
+using P7CreateRestApi.Mappings;
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddAutoMapper(typeof(BidListProfile));
+
 ConfigurationManager configuration = builder.Configuration;
 
 // Add services to the container.
