@@ -1,6 +1,6 @@
 ﻿using P7CreateRestApi.Domain;
-using P7CreateRestApi.DTOs.Bids;
 using AutoMapper;
+using P7CreateRestApi.DTOs.BidList;
 
 namespace P7CreateRestApi.Mappings
 {

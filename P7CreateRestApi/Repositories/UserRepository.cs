@@ -1,8 +1,8 @@
-using Dot.Net.WebApi.Domain;
+using P7CreateRestApi.Domain;
 using Microsoft.EntityFrameworkCore;
 using P7CreateRestApi.Data;
 
-namespace Dot.Net.WebApi.Repositories
+namespace P7CreateRestApi.Repositories
 {
     public class UserRepository
     {

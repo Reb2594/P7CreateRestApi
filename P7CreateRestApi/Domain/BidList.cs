@@ -45,9 +45,11 @@ namespace P7CreateRestApi.Domain
         public string SourceListId { get; set; }
 
         public string Side { get; set; }
-
         public void SetRevision(string revisionName)
         {
+            if (string.IsNullOrEmpty(revisionName))
+                throw new ArgumentException("Le nom de révision ne peut pas être vide", nameof(revisionName));
+
             RevisionName = revisionName;
             RevisionDate = DateTime.UtcNow;
         }

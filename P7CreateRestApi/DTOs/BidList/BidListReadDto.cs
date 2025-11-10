@@ -1,11 +1,12 @@
-﻿namespace P7CreateRestApi.DTOs.Bids
+﻿namespace P7CreateRestApi.DTOs.BidList
 {
     /// <summary>
-    /// DTO utilisé pour mettre à jour une BidList existante.
-    /// Contient uniquement les champs modifiables par le client. (PUT)
+    /// DTO utilisé pour renvoyer les données d'une BidList au client.
+    /// Contient toutes les informations utiles pour l'affichage. (GET)
     /// </summary>
-    public class BidListUpdateDto
+    public class BidListReadDto
     {
+        public int BidListId { get; set; }
         public string Account { get; set; }
         public string BidType { get; set; }
         public double? BidQuantity { get; set; }
@@ -22,5 +23,7 @@
         public string DealType { get; set; }
         public string SourceListId { get; set; }
         public string Side { get; set; }
+        public DateTime? CreationDate { get; set; }
+        public DateTime? RevisionDate { get; set; }
     }
 }

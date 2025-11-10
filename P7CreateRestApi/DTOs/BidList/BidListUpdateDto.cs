@@ -1,12 +1,13 @@
-﻿namespace P7CreateRestApi.DTOs.Bids
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace P7CreateRestApi.DTOs.BidList
 {
     /// <summary>
-    /// DTO utilisé pour renvoyer les données d'une BidList au client.
-    /// Contient toutes les informations utiles pour l'affichage. (GET)
+    /// DTO utilisé pour mettre à jour une BidList existante.
+    /// Contient uniquement les champs modifiables par le client. (PUT)
     /// </summary>
-    public class BidListReadDto
+    public class BidListUpdateDto
     {
-        public int BidListId { get; set; }
         public string Account { get; set; }
         public string BidType { get; set; }
         public double? BidQuantity { get; set; }
@@ -23,7 +24,9 @@
         public string DealType { get; set; }
         public string SourceListId { get; set; }
         public string Side { get; set; }
-        public DateTime? CreationDate { get; set; }
-        public DateTime? RevisionDate { get; set; }
+
+        [Required(ErrorMessage = "Le nom de révision est obligatoire")]
+        [StringLength(50, ErrorMessage = "Le nom de révision ne peut pas dépasser 50 caractères")]
+        public string RevisionName { get; set; }
     }
 }
