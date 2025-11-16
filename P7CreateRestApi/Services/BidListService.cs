@@ -2,6 +2,7 @@
 using P7CreateRestApi.Services.Interfaces;
 using AutoMapper;
 using P7CreateRestApi.DTOs.BidList;
+using P7CreateRestApi.Domain;
 
 namespace P7CreateRestApi.Services
 {
@@ -16,10 +17,10 @@ namespace P7CreateRestApi.Services
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<BidListReadDto>> GetAllAsync()
+        public async Task<List<BidListReadDto>> GetAllAsync()
         {
             var bidLists = await _bidListRepository.GetAllAsync();
-            return _mapper.Map<IEnumerable<BidListReadDto>>(bidLists);
+            return _mapper.Map<List<BidListReadDto>>(bidLists);
         }
 
         public async Task<BidListReadDto?> GetByIdAsync(int id)
@@ -30,8 +31,8 @@ namespace P7CreateRestApi.Services
 
         public async Task<BidListReadDto> CreateAsync(BidListCreateDto dto)
         {
-            var bidList = _mapper.Map<Domain.BidList>(dto);
-            await _bidListRepository.AddAsync(bidList);
+            var bidList = _mapper.Map<BidList>(dto);
+            await _bidListRepository.CreateAsync(bidList);
             return _mapper.Map<BidListReadDto>(bidList);
         }
 

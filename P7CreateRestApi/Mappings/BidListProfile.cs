@@ -12,9 +12,7 @@ namespace P7CreateRestApi.Mappings
         public BidListProfile()
         {
             CreateMap<BidList, BidListReadDto>();
-
             CreateMap<BidListCreateDto, BidList>();
-
             CreateMap<BidListUpdateDto, BidList>();
         }
     }

@@ -4,6 +4,8 @@ using P7CreateRestApi.Domain;
 using P7CreateRestApi.Services.Interfaces;
 using P7CreateRestApi.DTOs.BidList;
 using Microsoft.AspNetCore.Authorization;
+using P7CreateRestApi.DTOs.Trade;
+using P7CreateRestApi.Services;
 
 namespace P7CreateRestApi.Controllers
 {
@@ -18,6 +20,14 @@ namespace P7CreateRestApi.Controllers
         {
             _bidListService = bidListService;
             _logger = logger;
+        }
+
+        [HttpGet]
+        [Route("All")]
+        public async Task<IActionResult> Home()
+        {
+            List<BidListReadDto> trades = await _bidListService.GetAllAsync();
+            return Ok(trades);
         }
 
         [HttpPost]
@@ -72,7 +82,7 @@ namespace P7CreateRestApi.Controllers
             {
                 return NotFound($"L'offre {id} n'existe pas.");
             }
-            return Ok();
+            return NoContent();
         }
     }
 }

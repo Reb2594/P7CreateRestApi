@@ -4,10 +4,10 @@ namespace P7CreateRestApi.Repositories.Interfaces
 {
     public interface IBidListRepository
     {
-        Task<IEnumerable<BidList>> GetAllAsync();
+        Task<List<BidList>> GetAllAsync();
         Task<BidList> GetByIdAsync(int id);
-        Task AddAsync(BidList bidList);
-        Task UpdateAsync(BidList bidList);
+        Task<BidList> CreateAsync(BidList bidList);
+        Task<BidList> UpdateAsync(BidList bidList);
         Task DeleteAsync(int id);
     }
 }

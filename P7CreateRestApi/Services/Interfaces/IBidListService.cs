@@ -4,7 +4,7 @@ namespace P7CreateRestApi.Services.Interfaces
 {
     public interface IBidListService
     {
-        Task<IEnumerable<BidListReadDto>> GetAllAsync();
+        Task<List<BidListReadDto>> GetAllAsync();
         Task<BidListReadDto?> GetByIdAsync(int id);
         Task<BidListReadDto> CreateAsync(BidListCreateDto dto);
         Task<BidListReadDto?> UpdateAsync(int id, BidListUpdateDto dto);

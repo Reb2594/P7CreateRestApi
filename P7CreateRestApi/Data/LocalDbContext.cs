@@ -13,7 +13,7 @@ namespace P7CreateRestApi.Data
         }
 
         public DbSet<User> Users { get; set; }
-
         public DbSet<BidList> BidLists { get; set; }
+        public DbSet<Trade> Trades { get; set; }
     }
 }
