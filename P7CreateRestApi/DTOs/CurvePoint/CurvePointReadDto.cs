@@ -1,14 +1,12 @@
-using System;
-
-namespace P7CreateRestApi.Domain
+﻿namespace P7CreateRestApi.DTOs.CurvePoint
 {
-    public class CurvePoint
+    public class CurvePointReadDto
     {
-        public int Id { get; private set; }
+        public int Id { get; set; }
         public byte? CurveId { get; set; }
         public DateTime? AsOfDate { get; set; }
         public double? Term { get; set; }
         public double? CurvePointValue { get; set; }
-        public DateTime? CreationDate { get; private set; } = DateTime.UtcNow;
+        public DateTime? CreationDate { get; set; }
     }
 }

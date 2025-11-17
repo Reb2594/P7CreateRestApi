@@ -8,8 +8,8 @@ namespace P7CreateRestApi.DTOs.BidList
         [StringLength(50, ErrorMessage = "Le champ 'Compte' ne peut pas dépasser 50 caractères.")]
         public string Account { get; set; }
 
-        [Required(ErrorMessage = "Le type d'enchère est obligatoire.")]
-        [StringLength(30, ErrorMessage = "Le type d'enchère ne peut pas dépasser 30 caractères.")]
+        [Required(ErrorMessage = "Le type d'offre est obligatoire.")]
+        [StringLength(30, ErrorMessage = "Le type d'offre ne peut pas dépasser 30 caractères.")]
         public string BidType { get; set; }
 
         [Range(1, double.MaxValue, ErrorMessage = "La quantité d'achat doit être un nombre positif.")]

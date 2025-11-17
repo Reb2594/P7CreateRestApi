@@ -8,12 +8,23 @@ namespace P7CreateRestApi.DTOs.BidList
     /// </summary>
     public class BidListUpdateDto
     {
+        [StringLength(50, ErrorMessage = "Le compte ne peut pas dépasser 50 caractères")]
         public string Account { get; set; }
+
         public string BidType { get; set; }
+
+        [Range(0, double.MaxValue, ErrorMessage = "La quantité d'achat doit être un nombre positif")]
         public double? BidQuantity { get; set; }
+
+        [Range(0, double.MaxValue, ErrorMessage = "La quantité de vente doit être un nombre positif")]
         public double? AskQuantity { get; set; }
+
+        [Range(0, double.MaxValue, ErrorMessage = "Le prix d'achat doit être un nombre positif")]
         public double? Bid { get; set; }
+
+        [Range(0, double.MaxValue, ErrorMessage = "e prix de vente doit être un nombre positif")]
         public double? Ask { get; set; }
+
         public string Benchmark { get; set; }
         public string Commentary { get; set; }
         public string BidSecurity { get; set; }

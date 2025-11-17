@@ -20,6 +20,10 @@ namespace P7CreateRestApi.Domain
         public string RevisionName { get; set; }
         public DateTime? RevisionDate { get; private set; }
         public string DealName { get; set; }
+        public string DealType { get; set; }
+        public string SourceListId { get; set; }
+        public string Side { get; set; }
+
         public void SetRevision(string revisionName)
         {
             if (string.IsNullOrEmpty(revisionName))

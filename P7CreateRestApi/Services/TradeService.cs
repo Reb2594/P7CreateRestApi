@@ -31,8 +31,8 @@ namespace P7CreateRestApi.Services
         public async Task<TradeReadDto> CreateAsync(TradeCreateDto dto)
         {
             Trade trade = _mapper.Map<Trade>(dto);
-            await _tradeRepository.CreateAsync(trade);
-            return _mapper.Map<TradeReadDto>(trade);
+            Trade createdTrade = await _tradeRepository.CreateAsync(trade);
+            return _mapper.Map<TradeReadDto>(createdTrade);
         }
 
         public async Task<TradeReadDto?> UpdateAsync(int id, TradeUpdateDto dto)

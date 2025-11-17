@@ -25,5 +25,15 @@ namespace P7CreateRestApi.DTOs.Trade
 
         [Required(ErrorMessage = "La sécurité de trading est obligatoire")]
         public string TradeSecurity { get; set; }
+
+        public string TradeStatus { get; set; }
+        public string Trader { get; set; }
+        public string Benchmark { get; set; }
+        public string Book { get; set; }
+        public string CreationName { get; set; }
+        public string DealName { get; set; }
+        public string DealType { get; set; }
+        public string SourceListId { get; set; }
+        public string Side { get; set; }
     }
 }

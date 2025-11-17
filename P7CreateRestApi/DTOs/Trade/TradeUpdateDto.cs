@@ -22,9 +22,18 @@ namespace P7CreateRestApi.DTOs.Trade
         public double? SellPrice { get; set; }
 
         public string TradeSecurity { get; set; }
+        public string TradeStatus { get; set; }
+        public string Trader { get; set; }
+        public string Benchmark { get; set; }
+        public string Book { get; set; }
 
         [Required(ErrorMessage = "Le nom de révision est obligatoire")]
         [StringLength(50, ErrorMessage = "Le nom de révision ne peut pas dépasser 50 caractères")]
         public string RevisionName { get; set; }
+
+        public string DealName { get; set; }
+        public string DealType { get; set; }
+        public string SourceListId { get; set; }
+        public string Side { get; set; }
     }
 }

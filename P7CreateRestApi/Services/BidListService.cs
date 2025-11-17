@@ -32,8 +32,8 @@ namespace P7CreateRestApi.Services
         public async Task<BidListReadDto> CreateAsync(BidListCreateDto dto)
         {
             var bidList = _mapper.Map<BidList>(dto);
-            await _bidListRepository.CreateAsync(bidList);
-            return _mapper.Map<BidListReadDto>(bidList);
+            var createdBidList = await _bidListRepository.CreateAsync(bidList);
+            return _mapper.Map<BidListReadDto>(createdBidList);
         }
 
         public async Task<BidListReadDto?> UpdateAsync(int id, BidListUpdateDto dto)
