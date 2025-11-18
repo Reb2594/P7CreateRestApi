@@ -1,58 +1,80 @@
-using Dot.Net.WebApi.Controllers.Domain;
+using P7CreateRestApi.DTOs.Rating;
 using Microsoft.AspNetCore.Mvc;
+using P7CreateRestApi.Services.Interfaces;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 
-namespace Dot.Net.WebApi.Controllers
+namespace P7CreateRestApi.Controllers
 {
     [ApiController]
     [Route("[controller]")]
     public class RatingController : ControllerBase
     {
-        // TODO: Inject Rating service
-
-        [HttpGet]
-        [Route("list")]
-        public IActionResult Home()
+        private readonly ILogger<RatingController> _logger;
+        private readonly IRatingService _ratingService;
+        public RatingController(ILogger<RatingController> logger, IRatingService ratingService)
         {
-            // TODO: find all Rating, add to model
-            return Ok();
+            _logger = logger;
+            _ratingService = ratingService;
         }
 
         [HttpGet]
-        [Route("add")]
-        public IActionResult AddRatingForm([FromBody]Rating rating)
+        [Route("All")]
+        public async Task<IActionResult> Home()
         {
-            return Ok();
-        }
-
-        [HttpGet]
-        [Route("validate")]
-        public IActionResult Validate([FromBody]Rating rating)
-        {
-            // TODO: check data valid and save to db, after saving return Rating list
-            return Ok();
-        }
-
-        [HttpGet]
-        [Route("update/{id}")]
-        public IActionResult ShowUpdateForm(int id)
-        {
-            // TODO: get Rating by Id and to model then show to the form
-            return Ok();
+            var ratings = await _ratingService.GetAllAsync();
+            return Ok(ratings);
         }
 
         [HttpPost]
-        [Route("update/{id}")]
-        public IActionResult UpdateRating(int id, [FromBody] Rating rating)
+        [Route("")]
+        public async Task<IActionResult> Validate([FromBody]RatingCreateDto rating)
         {
-            // TODO: check required fields, if valid call service to update Rating and return Rating list
-            return Ok();
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var dto = await _ratingService.CreateAsync(rating);
+            return Ok(dto);
+        }
+
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<IActionResult> ShowUpdateForm(int id)
+        {
+            var rating = await _ratingService.GetByIdAsync(id);
+            if (rating == null)
+            {
+                return NotFound($"Le rating {id} n'existe pas.");
+            }
+            return Ok(rating);
+        }
+
+        [HttpPut]
+        [Route("{id}")]
+        public async Task<IActionResult> UpdateRating(int id, [FromBody] RatingUpdateDto dto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var updatedRating = await _ratingService.UpdateAsync(id, dto);
+            if (updatedRating == null)
+            {
+                return NotFound($"Le rating {id} n'existe pas.");
+            }
+            return Ok(updatedRating);
         }
 
         [HttpDelete]
         [Route("{id}")]
-        public IActionResult DeleteRating(int id)
+        public async Task<IActionResult> DeleteRating(int id)
         {
-            // TODO: Find Rating by Id and delete the Rating, return to Rating list
+            bool deletedRating = await _ratingService.DeleteAsync(id);
+            if (!deletedRating)
+            {
+                return NotFound($"Le rating {id} n'existe pas.");
+            }
             return Ok();
         }
     }

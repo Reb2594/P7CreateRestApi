@@ -1,8 +1,8 @@
-namespace P7CreateRestApi.Domain
+﻿namespace P7CreateRestApi.DTOs.Rating
 {
-    public class Rating
+    public class RatingReadDto
     {
-        public int Id { get; private set; }
+        public int Id { get; set; }
         public string MoodysRating { get; set; }
         public string SandPRating { get; set; }
         public string FitchRating { get; set; }

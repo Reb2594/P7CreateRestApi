@@ -25,18 +25,18 @@ namespace P7CreateRestApi.Services
             var curvePoint = await _curvePointRepository.GetByIdAsync(id);
             return curvePoint == null ? null : _mapper.Map<CurvePointReadDto>(curvePoint);
         }
-        public async Task<CurvePointReadDto> CreateAsync(CurvePointCreateDto curvePointCreateDto)
+        public async Task<CurvePointReadDto> CreateAsync(CurvePointCreateDto dto)
         {
-            var curvePoint = _mapper.Map<CurvePoint>(curvePointCreateDto);
+            var curvePoint = _mapper.Map<CurvePoint>(dto);
             var createdCurvePoint = await _curvePointRepository.CreateAsync(curvePoint);
             return _mapper.Map<CurvePointReadDto>(createdCurvePoint);
         }
-        public async Task<CurvePointReadDto?> UpdateAsync(int id, CurvePointUpdateDto curvePointUpdateDto)
+        public async Task<CurvePointReadDto?> UpdateAsync(int id, CurvePointUpdateDto dto)
         {
             var existingCurvePoint = await _curvePointRepository.GetByIdAsync(id);
             if (existingCurvePoint == null)
                 return null;
-            _mapper.Map(curvePointUpdateDto, existingCurvePoint);
+            _mapper.Map(dto, existingCurvePoint);
             await _curvePointRepository.UpdateAsync(existingCurvePoint);
             return _mapper.Map<CurvePointReadDto>(existingCurvePoint);
         }

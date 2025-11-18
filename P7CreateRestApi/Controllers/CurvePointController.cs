@@ -10,11 +10,11 @@ namespace P7CreateRestApi.Controllers
     [ApiController]
     [Authorize]
     [Route("[controller]")]
-    public class CurveController : ControllerBase
+    public class CurvePointController : ControllerBase
     {
         private readonly ICurvePointService _curvePointService;
-        private readonly ILogger<CurveController> _logger;
-        public CurveController(ICurvePointService curvePointService, ILogger<CurveController> logger)
+        private readonly ILogger<CurvePointController> _logger;
+        public CurvePointController(ICurvePointService curvePointService, ILogger<CurvePointController> logger)
         {
             _curvePointService = curvePointService;
             _logger = logger;
@@ -36,8 +36,8 @@ namespace P7CreateRestApi.Controllers
             {
                 return BadRequest(ModelState);
             }
-            await _curvePointService.CreateAsync(curvePoint);
-            return Ok(curvePoint);
+           var dto = await _curvePointService.CreateAsync(curvePoint);
+            return Ok(dto);
         }
 
         [HttpGet]

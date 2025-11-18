@@ -38,8 +38,8 @@ namespace P7CreateRestApi.Controllers
             {
                 return BadRequest(ModelState);
             }
-            await _bidListService.CreateAsync(bidList);
-            return Ok(bidList);
+            var dto = await _bidListService.CreateAsync(bidList);
+            return Ok(dto);
         }
 
         [HttpGet]
