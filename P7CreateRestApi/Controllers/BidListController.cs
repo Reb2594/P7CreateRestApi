@@ -15,36 +15,34 @@ namespace P7CreateRestApi.Controllers
     public class BidListController : ControllerBase
     {
         private readonly IBidListService _bidListService;
-        private readonly ILogger<BidListController> _logger;
-        public BidListController(IBidListService bidListService, ILogger<BidListController> logger)
+        public BidListController(IBidListService bidListService)
         {
             _bidListService = bidListService;
-            _logger = logger;
         }
 
         [HttpGet]
         [Route("All")]
-        public async Task<IActionResult> Home()
+        public async Task<IActionResult> GetAllBidLists()
         {
-            List<BidListReadDto> trades = await _bidListService.GetAllAsync();
-            return Ok(trades);
+            List<BidListReadDto> bidLists = await _bidListService.GetAllAsync();
+            return Ok(bidLists);
         }
 
         [HttpPost]
         [Route("")]
-        public async Task<IActionResult> Validate([FromBody] BidListCreateDto bidList)
+        public async Task<IActionResult> CreateBid([FromBody] BidListCreateDto bidList)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            var dto = await _bidListService.CreateAsync(bidList);
-            return Ok(dto);
+            var createdBidList = await _bidListService.CreateAsync(bidList);
+            return Ok(createdBidList);
         }
 
         [HttpGet]
         [Route("{id}")]
-        public async Task<IActionResult> ShowUpdateForm(int id)
+        public async Task<IActionResult> GetBid(int id)
         {
             BidListReadDto? bidList = await _bidListService.GetByIdAsync(id);
             if (bidList == null)
@@ -77,8 +75,8 @@ namespace P7CreateRestApi.Controllers
         [Route("{id}")]
         public async Task<IActionResult> DeleteBid(int id)
         {
-            var bidList = await _bidListService.DeleteAsync(id);
-            if (!bidList)
+            bool deletedBidList = await _bidListService.DeleteAsync(id);
+            if (!deletedBidList)
             {
                 return NotFound($"L'offre {id} n'existe pas.");
             }

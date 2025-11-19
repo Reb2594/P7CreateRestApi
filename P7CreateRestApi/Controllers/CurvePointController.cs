@@ -13,16 +13,15 @@ namespace P7CreateRestApi.Controllers
     public class CurvePointController : ControllerBase
     {
         private readonly ICurvePointService _curvePointService;
-        private readonly ILogger<CurvePointController> _logger;
-        public CurvePointController(ICurvePointService curvePointService, ILogger<CurvePointController> logger)
+        
+        public CurvePointController(ICurvePointService curvePointService)
         {
             _curvePointService = curvePointService;
-            _logger = logger;
         }
 
         [HttpGet]
         [Route("All")]
-        public async Task<IActionResult> Home()
+        public async Task<IActionResult> GetAllCurvePoints()
         {
             List<CurvePointReadDto> curvePoints = await _curvePointService.GetAllAsync();
             return Ok(curvePoints);
@@ -30,19 +29,19 @@ namespace P7CreateRestApi.Controllers
 
         [HttpPost]
         [Route("")]
-        public async Task<IActionResult> Validate([FromBody]CurvePointCreateDto curvePoint)
+        public async Task<IActionResult> CreateCurvePoint([FromBody]CurvePointCreateDto curvePoint)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-           var dto = await _curvePointService.CreateAsync(curvePoint);
-            return Ok(dto);
+           var createdCurvePoint = await _curvePointService.CreateAsync(curvePoint);
+           return Ok(createdCurvePoint);
         }
 
         [HttpGet]
         [Route("{id}")]
-        public async Task<IActionResult> ShowUpdateForm(int id)
+        public async Task<IActionResult> GetCurvePoint(int id)
         {
             CurvePointReadDto? curvePoint = await _curvePointService.GetByIdAsync(id);
             if (curvePoint == null)
@@ -70,14 +69,14 @@ namespace P7CreateRestApi.Controllers
 
         [HttpDelete]
         [Route("{id}")]
-        public async Task<IActionResult> DeleteBid(int id)
+        public async Task<IActionResult> DeleteCurvePoint(int id)
         {
             bool deletedCurvePoint = await _curvePointService.DeleteAsync(id);
             if (!deletedCurvePoint)
             {
                 return NotFound($"Le CurvePoint {id} n'existe pas.");
             }
-            return Ok();
+            return NoContent();
         }
     }
 }

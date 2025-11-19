@@ -32,8 +32,8 @@ namespace P7CreateRestApi.Controllers
             {
                 return BadRequest(ModelState);
             }
-            var dto = await _tradeService.CreateAsync(trade);
-            return Ok(dto);
+            var createdTrade = await _tradeService.CreateAsync(trade);
+            return Ok(createdTrade);
         }
 
         [HttpGet]
@@ -74,7 +74,7 @@ namespace P7CreateRestApi.Controllers
             {
                 return NotFound($"Le trade {id} n'existe pas.");
             }
-            return Ok();
+            return NoContent();
         }
     }
 }

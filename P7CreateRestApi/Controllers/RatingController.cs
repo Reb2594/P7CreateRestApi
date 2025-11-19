@@ -34,8 +34,8 @@ namespace P7CreateRestApi.Controllers
             {
                 return BadRequest(ModelState);
             }
-            var dto = await _ratingService.CreateAsync(rating);
-            return Ok(dto);
+            var createdRating = await _ratingService.CreateAsync(rating);
+            return Ok(createdRating);
         }
 
         [HttpGet]
@@ -52,13 +52,13 @@ namespace P7CreateRestApi.Controllers
 
         [HttpPut]
         [Route("{id}")]
-        public async Task<IActionResult> UpdateRating(int id, [FromBody] RatingUpdateDto dto)
+        public async Task<IActionResult> UpdateRating(int id, [FromBody] RatingUpdateDto rating)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            var updatedRating = await _ratingService.UpdateAsync(id, dto);
+            var updatedRating = await _ratingService.UpdateAsync(id, rating);
             if (updatedRating == null)
             {
                 return NotFound($"Le rating {id} n'existe pas.");
@@ -75,7 +75,7 @@ namespace P7CreateRestApi.Controllers
             {
                 return NotFound($"Le rating {id} n'existe pas.");
             }
-            return Ok();
+            return NoContent();
         }
     }
 }

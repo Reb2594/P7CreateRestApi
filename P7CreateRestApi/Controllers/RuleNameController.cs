@@ -1,58 +1,77 @@
+using P7CreateRestApi.DTOs.RuleName;
+using P7CreateRestApi.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Dot.Net.WebApi.Controllers
+namespace P7CreateRestApi.Controllers
 {
     [ApiController]
     [Route("[controller]")]
     public class RuleNameController : ControllerBase
     {
-        // TODO: Inject RuleName service
-
-        [HttpGet]
-        [Route("list")]
-        public IActionResult Home()
+        private readonly IRuleNameService _ruleNameService;
+        public RuleNameController(IRuleNameService ruleNameService)
         {
-            // TODO: find all RuleName, add to model
-            return Ok();
+            _ruleNameService = ruleNameService;
         }
 
         [HttpGet]
-        [Route("add")]
-        public IActionResult AddRuleName([FromBody]RuleName trade)
+        [Route("All")]
+        public async Task<IActionResult> GetAllRuleName()
         {
-            return Ok();
-        }
-
-        [HttpGet]
-        [Route("validate")]
-        public IActionResult Validate([FromBody]RuleName trade)
-        {
-            // TODO: check data valid and save to db, after saving return RuleName list
-            return Ok();
-        }
-
-        [HttpGet]
-        [Route("update/{id}")]
-        public IActionResult ShowUpdateForm(int id)
-        {
-            // TODO: get RuleName by Id and to model then show to the form
-            return Ok();
+            var ruleNames = await _ruleNameService.GetAllAsync();
+            return Ok(ruleNames);
         }
 
         [HttpPost]
-        [Route("update/{id}")]
-        public IActionResult UpdateRuleName(int id, [FromBody] RuleName rating)
+        [Route("")]
+        public async Task<IActionResult> CreateRuleName([FromBody]RuleNameCreateDto ruleName)
         {
-            // TODO: check required fields, if valid call service to update RuleName and return RuleName list
-            return Ok();
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var createdRuleName = await _ruleNameService.CreateAsync(ruleName);
+            return Ok(createdRuleName);
+        }
+
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<IActionResult> GetRuleName(int id)
+        {
+            var ruleName = await _ruleNameService.GetByIdAsync(id);
+            if (ruleName == null)
+            {
+                return NotFound($"Le RuleName {id} n'existe pas.");
+            }
+            return Ok(ruleName);
+        }
+
+        [HttpPut]
+        [Route("{id}")]
+        public async Task<IActionResult> UpdateRuleName(int id, [FromBody] RuleNameUpdateDto rating)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var updatedRuleName = await _ruleNameService.UpdateAsync(id, rating);
+            if (updatedRuleName == null)
+            {
+                return NotFound($"Le RuleName {id} n'existe pas.");
+            }
+            return Ok(updatedRuleName);
         }
 
         [HttpDelete]
         [Route("{id}")]
-        public IActionResult DeleteRuleName(int id)
+        public async Task<IActionResult> DeleteRuleName(int id)
         {
-            // TODO: Find RuleName by Id and delete the RuleName, return to Rule list
-            return Ok();
+            bool ruleName = await _ruleNameService.DeleteAsync(id);
+            if (!ruleName)
+            {
+                return NotFound($"Le RuleName {id} n'existe pas.");
+            }            
+            return NoContent();
         }
     }
 }
