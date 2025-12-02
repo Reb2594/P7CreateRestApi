@@ -6,27 +6,27 @@ using P7CreateRestApi.Data;
 
 namespace P7CreateRestApi.Repositories
 {
-    public class BidListRepository : IBidListRepository
+    public class BidRepository : IBidRepository
     {
         private readonly LocalDbContext _dbContext;
         private readonly ILogger _logger;
 
-        public BidListRepository(LocalDbContext dbContext, ILogger logger)
+        public BidRepository(LocalDbContext dbContext, ILogger logger)
         {
             _dbContext = dbContext;
             _logger = logger;
         }
 
-        public async Task<List<BidList>> GetAllAsync()
+        public async Task<List<Bid>> GetAllAsync()
         {
             try
             {
-                var bidlists = await _dbContext.BidLists.ToListAsync();
-                if (bidlists.Count < 1)
+                var bids = await _dbContext.Bids.ToListAsync();
+                if (bids.Count < 1)
                 {
                     _logger.LogWarning("Aucun Bid trouvé");
                 }
-                return bidlists;
+                return bids;
             }
             catch (Exception ex)
             {
@@ -34,16 +34,16 @@ namespace P7CreateRestApi.Repositories
                 throw;
             }
         }
-        public async Task<BidList?> GetByIdAsync(int id)
+        public async Task<Bid?> GetByIdAsync(int id)
         {
             try
             {
-                var bidlist = await _dbContext.BidLists.FindAsync(id);
-                if (bidlist == null)
+                var bid = await _dbContext.Bids.FindAsync(id);
+                if (bid == null)
                 {
                     _logger.LogWarning("Bid avec l'ID {Id} non trouvé", id);
                 }
-                return bidlist;
+                return bid;
             }
             catch (Exception ex)
             {
@@ -52,14 +52,14 @@ namespace P7CreateRestApi.Repositories
             }
         }
 
-        public async Task<BidList> CreateAsync(BidList bidList)
+        public async Task<Bid> CreateAsync(Bid bid)
         {
             try
             {
-                await _dbContext.BidLists.AddAsync(bidList);
+                await _dbContext.Bids.AddAsync(bid);
                 await _dbContext.SaveChangesAsync();
-                _logger.LogInformation("Bid créé avec succès, ID: {Id}", bidList.BidListId);
-                return bidList;
+                _logger.LogInformation("Bid créé avec succès, ID: {Id}", bid.BidId);
+                return bid;
             }
             catch (Exception ex)
             {
@@ -68,18 +68,18 @@ namespace P7CreateRestApi.Repositories
             }                
         }
 
-        public async Task<BidList> UpdateAsync(BidList bidList)
+        public async Task<Bid> UpdateAsync(Bid bid)
         {
             try
             {
-                _dbContext.BidLists.Update(bidList);
+                _dbContext.Bids.Update(bid);
                 await _dbContext.SaveChangesAsync();
-                _logger.LogInformation("Bid mis à jour avec succès, ID: {Id}", bidList.BidListId);
-                return bidList;
+                _logger.LogInformation("Bid mis à jour avec succès, ID: {Id}", bid.BidId);
+                return bid;
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Erreur lors de la mise à jour du bid {Id}", bidList.BidListId);
+                _logger.LogError(ex, "Erreur lors de la mise à jour du bid {Id}", bid.BidId);
                 throw;
             }
         }
@@ -88,10 +88,10 @@ namespace P7CreateRestApi.Repositories
         {
             try
             {
-                var bidList = await _dbContext.BidLists.FindAsync(id);
-                if (bidList != null)
+                var bid = await _dbContext.Bids.FindAsync(id);
+                if (bid != null)
                 {
-                    _dbContext.BidLists.Remove(bidList);
+                    _dbContext.Bids.Remove(bid);
                     await _dbContext.SaveChangesAsync();
                     _logger.LogInformation("Bid supprimé avec succès, ID: {Id}", id);
                 }

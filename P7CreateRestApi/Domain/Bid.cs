@@ -1,8 +1,8 @@
 namespace P7CreateRestApi.Domain
 {
-    public class BidList
+    public class Bid
     {
-        public int BidListId { get; private set; }
+        public int BidId { get; private set; }
 
         public string Account { get; set; }
 
@@ -12,13 +12,13 @@ namespace P7CreateRestApi.Domain
 
         public double? AskQuantity { get; set; }
 
-        public double? Bid { get; set; }
+        public double? BidPrice { get; set; }
 
-        public double? Ask { get; set; }
+        public double? AskPrice { get; set; }
 
         public string Benchmark { get; set; }
 
-        public DateTime? BidListDate { get; set; }
+        public DateTime? BidDate { get; set; }
 
         public string Commentary { get; set; }
 

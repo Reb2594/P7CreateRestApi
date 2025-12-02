@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace P7CreateRestApi.DTOs.BidList
+namespace P7CreateRestApi.DTOs.Bid
 {
-    public class BidListCreateDto
+    public class BidCreateDto
     {
         [Required(ErrorMessage = "Le champ 'Compte' est obligatoire.")]
         [StringLength(50, ErrorMessage = "Le champ 'Compte' ne peut pas dépasser 50 caractères.")]

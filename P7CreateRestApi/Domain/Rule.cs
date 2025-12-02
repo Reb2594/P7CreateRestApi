@@ -1,6 +1,6 @@
 namespace P7CreateRestApi.Domain
 {
-    public class RuleName
+    public class Rule
     {
         public int Id { get; private set; }
         public string Name { get; set; }

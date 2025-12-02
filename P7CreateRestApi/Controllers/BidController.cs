@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using P7CreateRestApi.Domain;
 using P7CreateRestApi.Services.Interfaces;
-using P7CreateRestApi.DTOs.BidList;
+using P7CreateRestApi.DTOs.Bid;
 using Microsoft.AspNetCore.Authorization;
 using P7CreateRestApi.DTOs.Trade;
 using P7CreateRestApi.Services;
@@ -12,57 +12,57 @@ namespace P7CreateRestApi.Controllers
     [ApiController]
     [Authorize]
     [Route("[controller]")]
-    public class BidListController : ControllerBase
+    public class BidController : ControllerBase
     {
-        private readonly IBidListService _bidListService;
-        public BidListController(IBidListService bidListService)
+        private readonly IBidService _bidService;
+        public BidController(IBidService bidService)
         {
-            _bidListService = bidListService;
+            _bidService = bidService;
         }
 
         [HttpGet]
         [Route("All")]
-        public async Task<IActionResult> GetAllBidLists()
+        public async Task<IActionResult> GetAllBids()
         {
-            List<BidListReadDto> bidLists = await _bidListService.GetAllAsync();
-            return Ok(bidLists);
+            List<BidReadDto> bids = await _bidService.GetAllAsync();
+            return Ok(bids);
         }
 
         [HttpPost]
         [Route("")]
-        public async Task<IActionResult> CreateBid([FromBody] BidListCreateDto bidList)
+        public async Task<IActionResult> CreateBid([FromBody] BidCreateDto bid)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            var createdBidList = await _bidListService.CreateAsync(bidList);
-            return Ok(createdBidList);
+            var createdBid = await _bidService.CreateAsync(bid);
+            return Ok(createdBid);
         }
 
         [HttpGet]
         [Route("{id}")]
         public async Task<IActionResult> GetBid(int id)
         {
-            BidListReadDto? bidList = await _bidListService.GetByIdAsync(id);
-            if (bidList == null)
+            BidReadDto? bid = await _bidService.GetByIdAsync(id);
+            if (bid == null)
             {
                 return NotFound($"L'offre {id} n'existe pas.");
             }
 
-            return Ok(bidList);
+            return Ok(bid);
         }
 
         [HttpPut]
         [Route("{id}")]
-        public async Task<IActionResult> UpdateBid(int id, [FromBody] BidListUpdateDto bidList)
+        public async Task<IActionResult> UpdateBid(int id, [FromBody] BidUpdateDto bid)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var updatedBid = await _bidListService.UpdateAsync(id, bidList);
+            var updatedBid = await _bidService.UpdateAsync(id, bid);
             if (updatedBid == null)
             {
                 return NotFound($"L'offre {id} n'existe pas.");
@@ -75,8 +75,8 @@ namespace P7CreateRestApi.Controllers
         [Route("{id}")]
         public async Task<IActionResult> DeleteBid(int id)
         {
-            bool deletedBidList = await _bidListService.DeleteAsync(id);
-            if (!deletedBidList)
+            bool deletedBid = await _bidService.DeleteAsync(id);
+            if (!deletedBid)
             {
                 return NotFound($"L'offre {id} n'existe pas.");
             }

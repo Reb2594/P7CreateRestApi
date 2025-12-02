@@ -1,6 +1,6 @@
-﻿namespace P7CreateRestApi.DTOs.RuleName
+﻿namespace P7CreateRestApi.DTOs.Rule
 {
-    public class RuleNameReadDto
+    public class RuleReadDto
     {
         public int Id { get; set; }
         public string Name { get; set; }

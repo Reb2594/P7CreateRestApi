@@ -1,85 +1,93 @@
-using Dot.Net.WebApi.Domain;
-using Dot.Net.WebApi.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using P7CreateRestApi.Services.Interfaces;
+using P7CreateRestApi.DTOs.User;
 
-namespace Dot.Net.WebApi.Controllers
+namespace P7CreateRestApi.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/users")]
     public class UserController : ControllerBase
     {
-        private UserRepository _userRepository;
+        private readonly IUserService _userService;
 
-        public UserController(UserRepository userRepository)
+        public UserController(IUserService userService)
         {
-            _userRepository = userRepository;
+            _userService = userService;
         }
 
+        // GET: api/users
         [HttpGet]
-        [Route("list")]
-        public IActionResult Home()
+        public async Task<IActionResult> GetAll()
         {
-            return Ok();
+            var users = await _userService.GetAll();
+            return Ok(users);
         }
 
-        [HttpGet]
-        [Route("add")]
-        public IActionResult AddUser([FromBody]User user)
+        // GET: api/users/{id}
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(string id)
         {
-            return Ok();
-        }
-
-        [HttpGet]
-        [Route("validate")]
-        public IActionResult Validate([FromBody]User user)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest();
-            }
-           
-           _userRepository.Add(user);
-
-            return Ok();
-        }
-
-        [HttpGet]
-        [Route("update/{id}")]
-        public IActionResult ShowUpdateForm(int id)
-        {
-            User user = _userRepository.FindById(id);
-            
+            var user = await _userService.GetById(id);
             if (user == null)
-                throw new ArgumentException("Invalid user Id:" + id);
+                return NotFound(new { Message = "Utilisateur introuvable." });
 
-            return Ok();
+            return Ok(user);
         }
 
-        [HttpPost]
-        [Route("update/{id}")]
-        public IActionResult UpdateUser(int id, [FromBody] User user)
+        // PUT: api/users/{id}
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(string id, UserUpdateDto dto)
         {
-            // TODO: check required fields, if valid call service to update Trade and return Trade list
-            return Ok();
+            var result = await _userService.Update(id, dto);
+            if (result == null)
+                return NotFound(new { Message = "Utilisateur introuvable." });
+
+            return Ok(result);
         }
 
-        [HttpDelete]
-        [Route("{id}")]
-        public IActionResult DeleteUser(int id)
+        // DELETE: api/users/{id}
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(string id)
         {
-            User user = _userRepository.FindById(id);
-            
-            if (user == null)
-                throw new ArgumentException("Invalid user Id:" + id);
+            var deleted = await _userService.Delete(id);
+            if (!deleted)
+                return NotFound(new { Message = "Utilisateur introuvable." });
 
-            return Ok();
+            return Ok(new { Message = "Utilisateur supprimé." });
         }
 
-        [HttpGet]
-        [Route("/secure/article-details")]
-        public async Task<ActionResult<List<User>>> GetAllUserArticles()
+        [HttpPost("{userId}/forgot-password")]
+        public async Task<IActionResult> GenerateResetToken(string userId)
         {
-            return Ok();
+            var token = await _userService.GeneratePasswordResetToken(userId);
+
+            if (token == null)
+                return NotFound(new { Message = "Utilisateur introuvable." });
+
+            // En prod, renvoyer le token par email
+            return Ok(new { ResetToken = token });
+        }
+
+        [HttpPost("{userId}/reset-password")]
+        public async Task<IActionResult> ResetPassword(string userId, ResetPasswordDto dto)
+        {
+            var result = await _userService.ResetPassword(userId, dto.Token, dto.NewPassword);
+
+            if (!result)
+                return BadRequest(new { Message = "Échec du changement de mot de passe. Token invalide ou mot de passe non conforme." });
+
+            return Ok(new { Message = "Mot de passe réinitialisé avec succès." });
+        }
+
+        [HttpPost("{userId}/change-password")]
+        public async Task<IActionResult> ChangePassword(string userId, ChangePasswordDto dto)
+        {
+            var result = await _userService.ChangePassword(userId, dto.CurrentPassword, dto.NewPassword);
+
+            if (!result)
+                return BadRequest(new { Message = "Échec du changement de mot de passe. L’ancien mot de passe est incorrect ou le nouveau est invalide." });
+
+            return Ok(new { Message = "Mot de passe modifié avec succès." });
         }
     }
 }

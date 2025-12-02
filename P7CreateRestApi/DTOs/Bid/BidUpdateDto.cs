@@ -1,12 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace P7CreateRestApi.DTOs.BidList
+namespace P7CreateRestApi.DTOs.Bid
 {
     /// <summary>
-    /// DTO utilisé pour mettre à jour une BidList existante.
+    /// DTO utilisé pour mettre à jour une Bid existante.
     /// Contient uniquement les champs modifiables par le client. (PUT)
     /// </summary>
-    public class BidListUpdateDto
+    public class BidUpdateDto
     {
         [StringLength(50, ErrorMessage = "Le compte ne peut pas dépasser 50 caractères")]
         public string Account { get; set; }

@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace P7CreateRestApi.DTOs.RuleName
+namespace P7CreateRestApi.DTOs.Rule
 {
-    public class RuleNameCreateDto
+    public class RuleCreateDto
     {
         [Required(ErrorMessage = "Le nom de la règle est obligatoire")]
         [StringLength(100, ErrorMessage = "Le nom ne peut pas dépasser 100 caractères")]

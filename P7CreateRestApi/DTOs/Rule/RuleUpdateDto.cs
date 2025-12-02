@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace P7CreateRestApi.DTOs.RuleName
+namespace P7CreateRestApi.DTOs.Rule
 {
-    public class RuleNameUpdateDto
+    public class RuleUpdateDto
     {
         [StringLength(100, ErrorMessage = "Le nom ne peut pas dépasser 100 caractères")]
         public string Name { get; set; }
