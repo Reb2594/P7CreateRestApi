@@ -8,8 +8,9 @@ namespace P7CreateRestApi.Repositories
     public class RuleRepository : IRuleRepository
     {
         private readonly LocalDbContext _dbContext;
-        private readonly ILogger _logger;
-        public RuleRepository(LocalDbContext dbContext, ILogger logger)
+        private readonly ILogger<RuleRepository> _logger;
+
+        public RuleRepository(LocalDbContext dbContext, ILogger<RuleRepository> logger)
         {
             _dbContext = dbContext;
             _logger = logger;
@@ -17,39 +18,12 @@ namespace P7CreateRestApi.Repositories
 
         public async Task<List<Rule>> GetAllAsync()
         {
-            try
-            {
-                var rules = await _dbContext.Rules.ToListAsync();
-                if (rules.Count < 1)
-                {
-                    _logger.LogWarning("Aucun Rule trouvé");
-                }
-                return rules;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Erreur lors de la recherche des Rules");
-                throw;
-            }
-
+            return await _dbContext.Rules.ToListAsync();
         }
 
         public async Task<Rule?> GetByIdAsync(int id)
         {
-            try
-            {
-                var rule = await _dbContext.Rules.FindAsync(id);
-                if (rule == null)
-                {
-                    _logger.LogWarning("Rule avec l'ID {Id} non trouvé", id);
-                }
-                return rule;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Erreur lors de la recherche du Rule {Id}", id);
-                throw;
-            }
+            return await _dbContext.Rules.FindAsync(id);
         }
 
         public async Task<Rule> CreateAsync(Rule rule)
@@ -58,12 +32,11 @@ namespace P7CreateRestApi.Repositories
             {
                 await _dbContext.Rules.AddAsync(rule);
                 await _dbContext.SaveChangesAsync();
-                _logger.LogInformation("Rule créé avec succès, ID: {Id}", rule.Id);
                 return rule;
             }
-            catch (Exception ex)
+            catch (DbUpdateException ex)
             {
-                _logger.LogError(ex, "Erreur lors de la création du Rule");
+                _logger.LogError(ex, "Erreur DB lors de la création de la règle");
                 throw;
             }
         }
@@ -74,36 +47,22 @@ namespace P7CreateRestApi.Repositories
             {
                 _dbContext.Rules.Update(rule);
                 await _dbContext.SaveChangesAsync();
-                _logger.LogInformation("Rule mis à jour avec succès, ID: {Id}", rule.Id);
                 return rule;
             }
-            catch (Exception ex)
+            catch (DbUpdateException ex)
             {
-                _logger.LogError(ex, "Erreur lors de la mise à jour du Rule avec l'ID {Id}", rule.Id);
+                _logger.LogError(ex, "Erreur DB lors de la mise à jour de la règle {Id}", rule.Id);
                 throw;
             }
         }
 
         public async Task DeleteAsync(int id)
         {
-            try
+            var rule = await _dbContext.Rules.FindAsync(id);
+            if (rule != null)
             {
-                var rule = await _dbContext.Rules.FindAsync(id);
-                if (rule != null)
-                {
-                    _dbContext.Rules.Remove(rule);
-                    await _dbContext.SaveChangesAsync();
-                    _logger.LogInformation("Rule supprimé avec succès, ID: {Id}", id);
-                }
-                else
-                {
-                    _logger.LogWarning("Rule avec l'ID {Id} non trouvé pour suppression", id);
-                }
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Erreur lors de la suppression du Rule avec l'ID {Id}", id);
-                throw;
+                _dbContext.Rules.Remove(rule);
+                await _dbContext.SaveChangesAsync();
             }
         }
     }

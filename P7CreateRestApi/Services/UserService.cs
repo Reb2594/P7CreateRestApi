@@ -2,15 +2,16 @@
 using P7CreateRestApi.Services.Interfaces;
 using AutoMapper;
 using P7CreateRestApi.DTOs.User;
+using P7CreateRestApi.Domain;
 
 namespace P7CreateRestApi.Services
 {
     public class UserService : IUserService
     {
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly IMapper _mapper;
 
-        public UserService(UserManager<IdentityUser> userManager, IMapper mapper)
+        public UserService(UserManager<ApplicationUser> userManager, IMapper mapper)
         {
             _userManager = userManager;
             _mapper = mapper;

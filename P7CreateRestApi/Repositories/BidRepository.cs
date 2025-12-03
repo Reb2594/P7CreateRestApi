@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using P7CreateRestApi.Domain;
 using P7CreateRestApi.Repositories.Interfaces;
-using Microsoft.Extensions.Logging;
 using P7CreateRestApi.Data;
 
 namespace P7CreateRestApi.Repositories
@@ -9,9 +8,9 @@ namespace P7CreateRestApi.Repositories
     public class BidRepository : IBidRepository
     {
         private readonly LocalDbContext _dbContext;
-        private readonly ILogger _logger;
+        private readonly ILogger<BidRepository> _logger;
 
-        public BidRepository(LocalDbContext dbContext, ILogger logger)
+        public BidRepository(LocalDbContext dbContext, ILogger<BidRepository> logger)
         {
             _dbContext = dbContext;
             _logger = logger;
@@ -19,37 +18,12 @@ namespace P7CreateRestApi.Repositories
 
         public async Task<List<Bid>> GetAllAsync()
         {
-            try
-            {
-                var bids = await _dbContext.Bids.ToListAsync();
-                if (bids.Count < 1)
-                {
-                    _logger.LogWarning("Aucun Bid trouvé");
-                }
-                return bids;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Erreur lors de la recherche des bids");
-                throw;
-            }
+            return await _dbContext.Bids.ToListAsync();
         }
+
         public async Task<Bid?> GetByIdAsync(int id)
         {
-            try
-            {
-                var bid = await _dbContext.Bids.FindAsync(id);
-                if (bid == null)
-                {
-                    _logger.LogWarning("Bid avec l'ID {Id} non trouvé", id);
-                }
-                return bid;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Erreur lors de la recherche du bid {Id}", id);
-                throw;
-            }
+            return await _dbContext.Bids.FindAsync(id);
         }
 
         public async Task<Bid> CreateAsync(Bid bid)
@@ -58,14 +32,13 @@ namespace P7CreateRestApi.Repositories
             {
                 await _dbContext.Bids.AddAsync(bid);
                 await _dbContext.SaveChangesAsync();
-                _logger.LogInformation("Bid créé avec succès, ID: {Id}", bid.BidId);
                 return bid;
             }
-            catch (Exception ex)
+            catch (DbUpdateException ex)
             {
-                _logger.LogError(ex, "Erreur lors de la création du bid");
+                _logger.LogError(ex, "Erreur DB lors de la création de l'offre");
                 throw;
-            }                
+            }
         }
 
         public async Task<Bid> UpdateAsync(Bid bid)
@@ -74,36 +47,22 @@ namespace P7CreateRestApi.Repositories
             {
                 _dbContext.Bids.Update(bid);
                 await _dbContext.SaveChangesAsync();
-                _logger.LogInformation("Bid mis à jour avec succès, ID: {Id}", bid.BidId);
                 return bid;
             }
-            catch (Exception ex)
+            catch (DbUpdateException ex)
             {
-                _logger.LogError(ex, "Erreur lors de la mise à jour du bid {Id}", bid.BidId);
+                _logger.LogError(ex, "Erreur DB lors de la mise à jour de l'offre {BidId}", bid.BidId);
                 throw;
             }
         }
 
         public async Task DeleteAsync(int id)
         {
-            try
+            var bid = await _dbContext.Bids.FindAsync(id);
+            if (bid != null)
             {
-                var bid = await _dbContext.Bids.FindAsync(id);
-                if (bid != null)
-                {
-                    _dbContext.Bids.Remove(bid);
-                    await _dbContext.SaveChangesAsync();
-                    _logger.LogInformation("Bid supprimé avec succès, ID: {Id}", id);
-                }
-                else
-                {
-                    _logger.LogWarning("Tentative de suppression d'un bid non trouvé, ID: {Id}", id);
-                }
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Erreur lors de la suppression du bid {Id}", id);
-                throw;
+                _dbContext.Bids.Remove(bid);
+                await _dbContext.SaveChangesAsync();
             }
         }
     }

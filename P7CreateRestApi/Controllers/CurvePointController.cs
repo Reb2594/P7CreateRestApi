@@ -7,40 +7,54 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace P7CreateRestApi.Controllers
 {
+    /// <summary>
+    /// Contrôleur pour la gestion des CurvePoints.
+    /// </summary>
     [ApiController]
     [Authorize]
-    [Route("[controller]")]
+    [Route("api/curvepoints")]
     public class CurvePointController : ControllerBase
     {
         private readonly ICurvePointService _curvePointService;
-        
+
         public CurvePointController(ICurvePointService curvePointService)
         {
             _curvePointService = curvePointService;
         }
 
+        /// <summary>
+        /// Récupère tous les CurvePoints.
+        /// </summary>
+        /// <returns>Liste des CurvePoints.</returns>
         [HttpGet]
-        [Route("All")]
         public async Task<IActionResult> GetAllCurvePoints()
         {
             List<CurvePointReadDto> curvePoints = await _curvePointService.GetAllAsync();
             return Ok(curvePoints);
         }
 
+        /// <summary>
+        /// Crée un nouveau CurvePoint.
+        /// </summary>
+        /// <param name="curvePoint">Données du CurvePoint à créer.</param>
+        /// <returns>Le CurvePoint créé.</returns>
         [HttpPost]
-        [Route("")]
-        public async Task<IActionResult> CreateCurvePoint([FromBody]CurvePointCreateDto curvePoint)
+        public async Task<IActionResult> CreateCurvePoint([FromBody] CurvePointCreateDto curvePoint)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-           var createdCurvePoint = await _curvePointService.CreateAsync(curvePoint);
-           return Ok(createdCurvePoint);
+            var createdCurvePoint = await _curvePointService.CreateAsync(curvePoint);
+            return Ok(createdCurvePoint);
         }
 
-        [HttpGet]
-        [Route("{id}")]
+        /// <summary>
+        /// Récupère un CurvePoint par son identifiant.
+        /// </summary>
+        /// <param name="id">Identifiant du CurvePoint.</param>
+        /// <returns>Le CurvePoint correspondant.</returns>
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetCurvePoint(int id)
         {
             CurvePointReadDto? curvePoint = await _curvePointService.GetByIdAsync(id);
@@ -51,8 +65,13 @@ namespace P7CreateRestApi.Controllers
             return Ok(curvePoint);
         }
 
-        [HttpPut]
-        [Route("{id}")]
+        /// <summary>
+        /// Met à jour un CurvePoint existant.
+        /// </summary>
+        /// <param name="id">Identifiant du CurvePoint à mettre à jour.</param>
+        /// <param name="curvePoint">Données de mise à jour.</param>
+        /// <returns>Le CurvePoint mis à jour.</returns>
+        [HttpPut("{id}")]
         public async Task<IActionResult> UpdateCurvePoint(int id, [FromBody] CurvePointUpdateDto curvePoint)
         {
             if (!ModelState.IsValid)
@@ -67,8 +86,12 @@ namespace P7CreateRestApi.Controllers
             return Ok(updatedCurvePoint);
         }
 
-        [HttpDelete]
-        [Route("{id}")]
+        /// <summary>
+        /// Supprime un CurvePoint par son identifiant.
+        /// </summary>
+        /// <param name="id">Identifiant du CurvePoint à supprimer.</param>
+        /// <returns>Code 204 si la suppression est réussie.</returns>
+        [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCurvePoint(int id)
         {
             bool deletedCurvePoint = await _curvePointService.DeleteAsync(id);

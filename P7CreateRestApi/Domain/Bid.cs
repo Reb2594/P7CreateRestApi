@@ -2,7 +2,7 @@ namespace P7CreateRestApi.Domain
 {
     public class Bid
     {
-        public int BidId { get; private set; }
+        public int BidId { get; set; }
 
         public string Account { get; set; }
 
@@ -32,11 +32,11 @@ namespace P7CreateRestApi.Domain
 
         public string CreationName { get; set; }
 
-        public DateTime? CreationDate { get; private set; } = DateTime.UtcNow;
+        public DateTime? CreationDate { get; set; }
 
         public string RevisionName { get; set; }
 
-        public DateTime? RevisionDate { get; private set; }
+        public DateTime? RevisionDate { get; set; }
 
         public string DealName { get; set; }
 
@@ -45,14 +45,6 @@ namespace P7CreateRestApi.Domain
         public string SourceListId { get; set; }
 
         public string Side { get; set; }
-        public void SetRevision(string revisionName)
-        {
-            if (string.IsNullOrEmpty(revisionName))
-                throw new ArgumentException("Le nom de révision ne peut pas être vide", nameof(revisionName));
-
-            RevisionName = revisionName;
-            RevisionDate = DateTime.UtcNow;
-        }
 
     }
 }

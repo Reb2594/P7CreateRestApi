@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Identity;
+using P7CreateRestApi.Domain;
 using P7CreateRestApi.DTOs.User;
 using P7CreateRestApi.Services.Interfaces;
 
@@ -7,15 +8,15 @@ namespace P7CreateRestApi.Services
 {
     public class AuthService : IAuthService
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IJwtService _jwtService;
         private readonly IMapper _mapper;
 
         public AuthService(
-            UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager,
+            UserManager<ApplicationUser> userManager,
+            SignInManager<ApplicationUser> signInManager,
             RoleManager<IdentityRole> roleManager,
             IJwtService jwtService,
             IMapper mapper)
@@ -29,10 +30,11 @@ namespace P7CreateRestApi.Services
 
         public async Task<UserReadDto> Register(UserRegisterDto dto)
         {
-            var user = new IdentityUser
+            var user = new ApplicationUser
             {
                 UserName = dto.Username,
-                Email = dto.Email
+                Email = dto.Email,
+                Fullname = dto.Fullname
             };
 
             var createResult = await _userManager.CreateAsync(user, dto.Password);

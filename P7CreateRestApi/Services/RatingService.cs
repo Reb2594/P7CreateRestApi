@@ -6,16 +6,14 @@ using AutoMapper;
 
 namespace P7CreateRestApi.Services
 {
-    public class RatingService
+    public class RatingService : IRatingService
     {
         private readonly IRatingRepository _ratingRepository;
-        private readonly ILogger _logger;
         private readonly IMapper _mapper;
 
-        public RatingService(IRatingRepository ratingRepository, ILogger logger, IMapper mapper)
+        public RatingService(IRatingRepository ratingRepository, IMapper mapper)
         {
             _ratingRepository = ratingRepository;
-            _logger = logger;
             _mapper = mapper;
         }
         public async Task<List<RatingReadDto>> GetAllAsync()

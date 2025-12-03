@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using P7CreateRestApi.Repositories;
+using P7CreateRestApi.Repositories.Interfaces;
 using AutoMapper;
 using P7CreateRestApi.Mappings;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,8 +12,15 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Text;
 using P7CreateRestApi.Services.Interfaces;
 using P7CreateRestApi.Services;
+using P7CreateRestApi.Data;
+using P7CreateRestApi.Middlewares;
+
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
+builder.Logging.AddDebug();
 
 // Database Configuration
 builder.Services.AddDbContext<LocalDbContext>(options =>
@@ -27,8 +35,6 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
     options.User.RequireUniqueEmail = true;
     options.Password.RequiredLength = 12;
     options.Password.RequiredUniqueChars = 1;
-
-    options.User.RequireUniqueEmail = true;
 
     options.Lockout.MaxFailedAccessAttempts = 5;
     options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(15);
@@ -65,12 +71,24 @@ builder.Services.AddAuthentication(options =>
 
 // AutoMapper
 builder.Services.AddAutoMapper(typeof(Program));
-builder.Services.AddAutoMapper(typeof(BidProfile));
 
-// services & repos to register later...
-// builder.Services.AddScoped<IUserService, UserService>(); etc.
-builder.Services.AddScoped<BidRepository, BidRepository>();
+// Repositories
+builder.Services.AddScoped<IBidRepository, BidRepository>();
+builder.Services.AddScoped<ICurvePointRepository, CurvePointRepository>();
+builder.Services.AddScoped<IRatingRepository, RatingRepository>();
+builder.Services.AddScoped<IRuleRepository, RuleRepository>();
+builder.Services.AddScoped<ITradeRepository, TradeRepository>();
+
+// Services
+builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IJwtService, JwtService>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IBidService, BidService>();
+builder.Services.AddScoped<ICurvePointService, CurvePointService>();
+builder.Services.AddScoped<IRatingService, RatingService>();
+builder.Services.AddScoped<IRuleService, RuleService>();
+builder.Services.AddScoped<ITradeService, TradeService>();
+
 
 
 builder.Services.AddControllers();
@@ -79,29 +97,25 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-app.UseSwagger();
-app.UseSwaggerUI();
+using (var scope = app.Services.CreateScope())
+{
+    await IdentitySeeder.SeedAsync(scope.ServiceProvider);
+}
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
+app.UseMiddleware<GlobalExceptionMiddleware>();
+app.UseMiddleware<RequestLoggingMiddleware>();
 
 app.UseHttpsRedirection();
+
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-
-string[] roles = new[] { "Admin", "User", "Manager" };
-
-using (var scope = app.Services.CreateScope())
-{
-    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-
-    foreach (var role in roles)
-    {
-        var roleExists = await roleManager.RoleExistsAsync(role);
-        if (!roleExists)
-        {
-            await roleManager.CreateAsync(new IdentityRole(role));
-        }
-    }
-}
 
 app.Run();
