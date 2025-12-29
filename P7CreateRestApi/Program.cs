@@ -15,14 +15,19 @@ using P7CreateRestApi.Services;
 using P7CreateRestApi.Data;
 using P7CreateRestApi.Middlewares;
 using Microsoft.OpenApi.Models;
+using Serilog;
 using System.Reflection;
 
 
+// Build Web Application
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Logging.ClearProviders();
-builder.Logging.AddConsole();
-builder.Logging.AddDebug();
+// Serilog Configuration
+Log.Logger = new LoggerConfiguration()
+    .ReadFrom.Configuration(builder.Configuration)
+    .CreateLogger();
+
+builder.Host.UseSerilog();
 
 // Database Configuration
 builder.Services.AddDbContext<LocalDbContext>(options =>
