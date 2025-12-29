@@ -2,6 +2,10 @@
 
 namespace P7CreateRestApi.DTOs.Trade
 {
+    /// <summary>
+    /// DTO utilisé pour créer une nouvelle trade.
+    /// Contient uniquement les champs à renseigner par le client. (POST)
+    /// </summary>
     public class TradeCreateDto
     {
         [Required(ErrorMessage = "Le compte est obligatoire")]

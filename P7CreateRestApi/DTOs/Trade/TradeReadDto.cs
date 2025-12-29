@@ -1,5 +1,9 @@
 ﻿namespace P7CreateRestApi.DTOs.Trade
 {
+    /// <summary>
+    /// DTO utilisé pour renvoyer les données d'une trade au client.
+    /// Contient toutes les informations utiles pour l'affichage. (GET)
+    /// </summary>
     public class TradeReadDto
     {
         public int TradeId { get; set; }

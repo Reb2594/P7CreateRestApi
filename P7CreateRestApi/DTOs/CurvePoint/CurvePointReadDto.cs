@@ -1,5 +1,9 @@
 ﻿namespace P7CreateRestApi.DTOs.CurvePoint
 {
+    /// <summary>
+    /// DTO utilisé pour renvoyer les données d'un curvepoint au client.
+    /// Contient toutes les informations utiles pour l'affichage. (GET)
+    /// </summary>
     public class CurvePointReadDto
     {
         public int Id { get; set; }

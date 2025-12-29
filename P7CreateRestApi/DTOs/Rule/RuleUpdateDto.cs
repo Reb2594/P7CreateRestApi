@@ -2,6 +2,10 @@
 
 namespace P7CreateRestApi.DTOs.Rule
 {
+    /// <summary>
+    /// DTO utilisé pour mettre à jour une rule existante.
+    /// Contient uniquement les champs modifiables par le client. (PUT)
+    /// </summary>
     public class RuleUpdateDto
     {
         [StringLength(100, ErrorMessage = "Le nom ne peut pas dépasser 100 caractères")]

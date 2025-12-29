@@ -2,6 +2,10 @@
 
 namespace P7CreateRestApi.DTOs.CurvePoint
 {
+    /// <summary>
+    /// DTO utilisé pour créer un nouveau curvepoint.
+    /// Contient uniquement les champs à renseigner par le client. (POST)
+    /// </summary>
     public class CurvePointCreateDto
     {
         [Required(ErrorMessage = "L'ID de la courbe est obligatoire")]

@@ -2,6 +2,10 @@
 
 namespace P7CreateRestApi.DTOs.Trade
 {
+    /// <summary>
+    /// DTO utilisé pour mettre à jour une trade existante.
+    /// Contient uniquement les champs modifiables par le client. (PUT)
+    /// </summary>
     public class TradeUpdateDto
     {
         [StringLength(50, ErrorMessage = "Le compte ne peut pas dépasser 50 caractères")]

@@ -2,6 +2,10 @@
 
 namespace P7CreateRestApi.DTOs.Rating
 {
+    /// <summary>
+    /// DTO utilisé pour mettre à jour un rating existant.
+    /// Contient uniquement les champs modifiables par le client. (PUT)
+    /// </summary>
     public class RatingUpdateDto
     {
         [StringLength(50, ErrorMessage = "La notation Moody's ne peut pas dépasser 50 caractères")]
