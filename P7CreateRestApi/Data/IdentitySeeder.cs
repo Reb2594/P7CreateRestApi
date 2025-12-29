@@ -21,7 +21,7 @@ namespace P7CreateRestApi.Data
             }
 
             string adminEmail = "admin@example.com";
-            string adminPassword = "AdminStrongPass@2025"; // À mettre en secret / variable d’environnement !!
+            string adminPassword = "AdminStrongPass@2025"; // À mettre en secret / variable d’environnement !!  
 
             var adminUser = await userManager.FindByEmailAsync(adminEmail);
 
@@ -31,13 +31,28 @@ namespace P7CreateRestApi.Data
                 {
                     UserName = adminEmail,
                     Email = adminEmail,
+                    Fullname = "Administrator",
                     EmailConfirmed = true
                 };
 
                 var result = await userManager.CreateAsync(adminUser, adminPassword);
 
                 if (result.Succeeded)
-                    await userManager.AddToRoleAsync(adminUser, "Admin");
+                {
+                    var adminRole = roles.FirstOrDefault(r => r == "Admin");
+                    if (adminRole != null)
+                    {
+                        await userManager.AddToRoleAsync(adminUser, adminRole);
+                    }
+                }
+            }
+            else
+            {
+                var adminRole = roles.FirstOrDefault(r => r == "Admin");
+                if (adminRole != null && !await userManager.IsInRoleAsync(adminUser, adminRole))
+                {
+                    await userManager.AddToRoleAsync(adminUser, adminRole);
+                }
             }
         }
     }
