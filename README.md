@@ -63,6 +63,12 @@ Il s'agissait de reprendre les missions de Stéphanie, développeuse qui a quitt
 - **Utilisateur administrateur** : Un utilisateur avec un rôle administrateur est créé automatiquement. Vous pouvez retrouver son login et son mot de passe dans `Program.cs`.
 - **Projet de tests unitaires** : Un projet de tests est inclus, couvrant les couches **Controller** et **Service** avec des tests unitaires utilisant **xUnit**.
 
+## Sécurité & conformité
+
+- Validation et protection des données utilisateur
+- Respect des normes OWASP (authentification, gestion des rôles, validation des entrées)
+- Respect du principe de minimisation des données et suppression possible
+
 ## Auteur
 
 **Rebecca Bajazet**
