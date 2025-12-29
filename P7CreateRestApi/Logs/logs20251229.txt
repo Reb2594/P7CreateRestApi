@@ -1,0 +1,4 @@
+2025-12-29 15:23:51.011 +01:00 [INF] [2025-12-29 14:23:50] GET / | Utilisateur: Non authentifié | IP: 127.0.0.1
+2025-12-29 15:23:51.293 +01:00 [INF] [2025-12-29 14:23:51] GET / - Status: 404 - Durée: 341.3885ms | Utilisateur: Non authentifié
+2025-12-29 15:24:00.030 +01:00 [INF] [2025-12-29 14:24:00] GET / | Utilisateur: Non authentifié | IP: 127.0.0.1
+2025-12-29 15:24:00.051 +01:00 [INF] [2025-12-29 14:24:00] GET / - Status: 404 - Durée: 21.6188ms | Utilisateur: Non authentifié
