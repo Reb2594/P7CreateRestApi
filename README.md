@@ -24,7 +24,7 @@ Il s'agissait de reprendre les missions de Stéphanie, développeuse qui a quitt
 ## Installation et exécution
 
 ### Prérequis
-- [.NET 8 SDK](https://dotnet.microsoft.com/en-us/download)
+- [.NET 6 SDK](https://dotnet.microsoft.com/en-us/download)
 - SQL Server ou un autre fournisseur de base de données compatible
 - Un éditeur de code comme [Visual Studio](https://visualstudio.microsoft.com/) ou [VS Code](https://code.visualstudio.com/)
 
