@@ -31,7 +31,6 @@ namespace P7CreateRestApi.Data
                 {
                     UserName = adminEmail,
                     Email = adminEmail,
-                    Fullname = "Administrator",
                     EmailConfirmed = true
                 };
 
