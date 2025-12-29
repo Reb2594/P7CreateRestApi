@@ -32,7 +32,7 @@ Il s'agissait de reprendre les missions de Stéphanie, développeuse qui a quitt
 
 1. **Cloner le projet**
    ```sh
-   git clone https://github.com/votre-utilisateur/findexium-posttrades.git
+   git clone https://github.com/Reb2594/P7CreateRestApi.git
    ```
 
 2. **Configurer la base de données**
