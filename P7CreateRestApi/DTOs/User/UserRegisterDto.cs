@@ -2,6 +2,10 @@
 
 namespace P7CreateRestApi.DTOs.User
 {
+    /// <summary>
+    /// DTO utilisé pour enregistrer un nouvel utilisateur.
+    /// Contient uniquement les champs à renseigner par le client. (POST)
+    /// </summary>
     public class UserRegisterDto
     {
         [Required(ErrorMessage = "Nom d'utilisateur requis")]

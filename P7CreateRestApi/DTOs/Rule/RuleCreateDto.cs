@@ -2,6 +2,10 @@
 
 namespace P7CreateRestApi.DTOs.Rule
 {
+    /// <summary>
+    /// DTO utilisé pour créer une nouvelle rule.
+    /// Contient uniquement les champs à renseigner par le client. (POST)
+    /// </summary>
     public class RuleCreateDto
     {
         [Required(ErrorMessage = "Le nom de la règle est obligatoire")]

@@ -1,5 +1,9 @@
 ﻿namespace P7CreateRestApi.DTOs.Rule
 {
+    /// <summary>
+    /// DTO utilisé pour renvoyer les données d'une rule au client.
+    /// Contient toutes les informations utiles pour l'affichage. (GET)
+    /// </summary>
     public class RuleReadDto
     {
         public int Id { get; set; }

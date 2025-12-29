@@ -2,6 +2,10 @@
 
 namespace P7CreateRestApi.DTOs.CurvePoint
 {
+    /// <summary>
+    /// DTO utilisé pour mettre à jour un curvepoint existant.
+    /// Contient uniquement les champs modifiables par le client. (PUT)
+    /// </summary>
     public class CurvePointUpdateDto
     {
         public byte? CurveId { get; set; }

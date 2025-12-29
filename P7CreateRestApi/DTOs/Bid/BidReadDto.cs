@@ -1,7 +1,7 @@
 ﻿namespace P7CreateRestApi.DTOs.Bid
 {
     /// <summary>
-    /// DTO utilisé pour renvoyer les données d'une Bid au client.
+    /// DTO utilisé pour renvoyer les données d'un bid au client.
     /// Contient toutes les informations utiles pour l'affichage. (GET)
     /// </summary>
     public class BidReadDto

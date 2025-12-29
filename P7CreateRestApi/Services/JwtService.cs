@@ -37,7 +37,7 @@ namespace P7CreateRestApi.Services
 
             var token = new JwtSecurityToken(
                 issuer: _config["Jwt:Issuer"],
-                audience: null,
+                audience: _config["Jwt:Audience"],
                 claims: claims,
                 expires: DateTime.UtcNow.AddHours(3),
                 signingCredentials: creds);

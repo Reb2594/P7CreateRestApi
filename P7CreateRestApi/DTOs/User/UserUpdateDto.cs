@@ -2,6 +2,10 @@
 
 namespace P7CreateRestApi.DTOs.User
 {
+    /// <summary>
+    /// DTO utilisé pour mettre à jour un utilisateur existant.
+    /// Contient uniquement les champs modifiables par le client. (PUT)
+    /// </summary>
     public class UserUpdateDto
     {
         [Required(ErrorMessage = "Nom d'utilisateur requis")]

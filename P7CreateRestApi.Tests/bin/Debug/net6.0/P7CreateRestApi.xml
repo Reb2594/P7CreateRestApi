@@ -1,0 +1,433 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>P7CreateRestApi</name>
+    </assembly>
+    <members>
+        <member name="T:P7CreateRestApi.Controllers.AuthController">
+            <summary>
+            Contrôleur pour l'authentification et l'inscription des utilisateurs.
+            </summary>
+        </member>
+        <member name="M:P7CreateRestApi.Controllers.AuthController.Register(P7CreateRestApi.DTOs.User.UserRegisterDto)">
+            <summary>
+            Inscrit un nouvel utilisateur dans le système.
+            </summary>
+            <param name="dto">Données d'inscription (username, email, password, fullname, role).</param>
+            <returns>L'utilisateur créé avec ses informations.</returns>
+        </member>
+        <member name="M:P7CreateRestApi.Controllers.AuthController.Login(P7CreateRestApi.DTOs.User.UserLoginDto)">
+            <summary>
+            Authentifie un utilisateur et génère un token JWT.
+            </summary>
+            <param name="dto">Identifiants de connexion (username, password).</param>
+            <returns>Token JWT pour l'authentification.</returns>
+        </member>
+        <member name="T:P7CreateRestApi.Controllers.BidController">
+            <summary>
+            Contrôleur pour la gestion des offres (Bids).
+            </summary>
+        </member>
+        <member name="M:P7CreateRestApi.Controllers.BidController.GetAllBids">
+            <summary>
+            Récupère toutes les offres.
+            </summary>
+            <returns>Liste des offres.</returns>
+        </member>
+        <member name="M:P7CreateRestApi.Controllers.BidController.GetBid(System.Int32)">
+            <summary>
+            Récupère une offre par son identifiant.
+            </summary>
+            <param name="id">Identifiant de l'offre.</param>
+            <returns>L'offre correspondante.</returns>
+        </member>
+        <member name="M:P7CreateRestApi.Controllers.BidController.CreateBid(P7CreateRestApi.DTOs.Bid.BidCreateDto)">
+            <summary>
+            Crée une nouvelle offre.
+            </summary>
+            <param name="bid">Données de l'offre à créer.</param>
+            <returns>L'offre créée.</returns>
+        </member>
+        <member name="M:P7CreateRestApi.Controllers.BidController.UpdateBid(System.Int32,P7CreateRestApi.DTOs.Bid.BidUpdateDto)">
+            <summary>
+            Met à jour une offre existante.
+            </summary>
+            <param name="id">Identifiant de l'offre à mettre à jour.</param>
+            <param name="bid">Données de mise à jour.</param>
+            <returns>L'offre mise à jour.</returns>
+        </member>
+        <member name="M:P7CreateRestApi.Controllers.BidController.DeleteBid(System.Int32)">
+            <summary>
+            Supprime une offre par son identifiant.
+            </summary>
+            <param name="id">Identifiant de l'offre à supprimer.</param>
+            <returns>Code 204 si la suppression est réussie.</returns>
+        </member>
+        <member name="T:P7CreateRestApi.Controllers.CurvePointController">
+            <summary>
+            Contrôleur pour la gestion des CurvePoints.
+            </summary>
+        </member>
+        <member name="M:P7CreateRestApi.Controllers.CurvePointController.GetAllCurvePoints">
+            <summary>
+            Récupère tous les CurvePoints.
+            </summary>
+            <returns>Liste des CurvePoints.</returns>
+        </member>
+        <member name="M:P7CreateRestApi.Controllers.CurvePointController.CreateCurvePoint(P7CreateRestApi.DTOs.CurvePoint.CurvePointCreateDto)">
+            <summary>
+            Crée un nouveau CurvePoint.
+            </summary>
+            <param name="curvePoint">Données du CurvePoint à créer.</param>
+            <returns>Le CurvePoint créé.</returns>
+        </member>
+        <member name="M:P7CreateRestApi.Controllers.CurvePointController.GetCurvePoint(System.Int32)">
+            <summary>
+            Récupère un CurvePoint par son identifiant.
+            </summary>
+            <param name="id">Identifiant du CurvePoint.</param>
+            <returns>Le CurvePoint correspondant.</returns>
+        </member>
+        <member name="M:P7CreateRestApi.Controllers.CurvePointController.UpdateCurvePoint(System.Int32,P7CreateRestApi.DTOs.CurvePoint.CurvePointUpdateDto)">
+            <summary>
+            Met à jour un CurvePoint existant.
+            </summary>
+            <param name="id">Identifiant du CurvePoint à mettre à jour.</param>
+            <param name="curvePoint">Données de mise à jour.</param>
+            <returns>Le CurvePoint mis à jour.</returns>
+        </member>
+        <member name="M:P7CreateRestApi.Controllers.CurvePointController.DeleteCurvePoint(System.Int32)">
+            <summary>
+            Supprime un CurvePoint par son identifiant.
+            </summary>
+            <param name="id">Identifiant du CurvePoint à supprimer.</param>
+            <returns>Code 204 si la suppression est réussie.</returns>
+        </member>
+        <member name="T:P7CreateRestApi.Controllers.RatingController">
+            <summary>
+            Contrôleur pour la gestion des notations (Ratings).
+            </summary>
+        </member>
+        <member name="M:P7CreateRestApi.Controllers.RatingController.GetAllRatings">
+            <summary>
+            Récupère toutes les notations.
+            </summary>
+            <returns>Liste des notations.</returns>
+        </member>
+        <member name="M:P7CreateRestApi.Controllers.RatingController.GetRating(System.Int32)">
+            <summary>
+            Récupère une notation par son identifiant.
+            </summary>
+            <param name="id">Identifiant de la notation.</param>
+            <returns>La notation correspondante.</returns>
+        </member>
+        <member name="M:P7CreateRestApi.Controllers.RatingController.CreateRating(P7CreateRestApi.DTOs.Rating.RatingCreateDto)">
+            <summary>
+            Crée une nouvelle notation.
+            </summary>
+            <param name="rating">Données de la notation à créer.</param>
+            <returns>La notation créée.</returns>
+        </member>
+        <member name="M:P7CreateRestApi.Controllers.RatingController.UpdateRating(System.Int32,P7CreateRestApi.DTOs.Rating.RatingUpdateDto)">
+            <summary>
+            Met à jour une notation existante.
+            </summary>
+            <param name="id">Identifiant de la notation à mettre à jour.</param>
+            <param name="rating">Données de mise à jour.</param>
+            <returns>La notation mise à jour.</returns>
+        </member>
+        <member name="M:P7CreateRestApi.Controllers.RatingController.DeleteRating(System.Int32)">
+            <summary>
+            Supprime une notation par son identifiant.
+            </summary>
+            <param name="id">Identifiant de la notation à supprimer.</param>
+            <returns>Code 204 si la suppression est réussie.</returns>
+        </member>
+        <member name="T:P7CreateRestApi.Controllers.RuleController">
+            <summary>
+            Contrôleur pour la gestion des règles (Rules).
+            </summary>
+        </member>
+        <member name="M:P7CreateRestApi.Controllers.RuleController.GetAllRules">
+            <summary>
+            Récupère toutes les règles.
+            </summary>
+            <returns>Liste des règles.</returns>
+        </member>
+        <member name="M:P7CreateRestApi.Controllers.RuleController.GetRule(System.Int32)">
+            <summary>
+            Récupère une règle par son identifiant.
+            </summary>
+            <param name="id">Identifiant de la règle.</param>
+            <returns>La règle correspondante.</returns>
+        </member>
+        <member name="M:P7CreateRestApi.Controllers.RuleController.CreateRule(P7CreateRestApi.DTOs.Rule.RuleCreateDto)">
+            <summary>
+            Crée une nouvelle règle.
+            </summary>
+            <param name="rule">Données de la règle à créer.</param>
+            <returns>La règle créée.</returns>
+        </member>
+        <member name="M:P7CreateRestApi.Controllers.RuleController.UpdateRule(System.Int32,P7CreateRestApi.DTOs.Rule.RuleUpdateDto)">
+            <summary>
+            Met à jour une règle existante.
+            </summary>
+            <param name="id">Identifiant de la règle à mettre à jour.</param>
+            <param name="rule">Données de mise à jour.</param>
+            <returns>La règle mise à jour.</returns>
+        </member>
+        <member name="M:P7CreateRestApi.Controllers.RuleController.DeleteRule(System.Int32)">
+            <summary>
+            Supprime une règle par son identifiant.
+            </summary>
+            <param name="id">Identifiant de la règle à supprimer.</param>
+            <returns>Code 204 si la suppression est réussie.</returns>
+        </member>
+        <member name="T:P7CreateRestApi.Controllers.TradeController">
+            <summary>
+            Contrôleur pour la gestion des transactions (Trades).
+            </summary>
+        </member>
+        <member name="M:P7CreateRestApi.Controllers.TradeController.GetAllTrades">
+            <summary>
+            Récupère toutes les transactions.
+            </summary>
+            <returns>Liste des transactions.</returns>
+        </member>
+        <member name="M:P7CreateRestApi.Controllers.TradeController.GetTrade(System.Int32)">
+            <summary>
+            Récupère une transaction par son identifiant.
+            </summary>
+            <param name="id">Identifiant de la transaction.</param>
+            <returns>La transaction correspondante.</returns>
+        </member>
+        <member name="M:P7CreateRestApi.Controllers.TradeController.CreateTrade(P7CreateRestApi.DTOs.Trade.TradeCreateDto)">
+            <summary>
+            Crée une nouvelle transaction.
+            </summary>
+            <param name="trade">Données de la transaction à créer.</param>
+            <returns>La transaction créée.</returns>
+        </member>
+        <member name="M:P7CreateRestApi.Controllers.TradeController.UpdateTrade(System.Int32,P7CreateRestApi.DTOs.Trade.TradeUpdateDto)">
+            <summary>
+            Met à jour une transaction existante.
+            </summary>
+            <param name="id">Identifiant de la transaction à mettre à jour.</param>
+            <param name="trade">Données de mise à jour.</param>
+            <returns>La transaction mise à jour.</returns>
+        </member>
+        <member name="M:P7CreateRestApi.Controllers.TradeController.DeleteTrade(System.Int32)">
+            <summary>
+            Supprime une transaction par son identifiant.
+            </summary>
+            <param name="id">Identifiant de la transaction à supprimer.</param>
+            <returns>Code 204 si la suppression est réussie.</returns>
+        </member>
+        <member name="T:P7CreateRestApi.Controllers.UserController">
+            <summary>
+            Contrôleur pour la gestion des utilisateurs.
+            </summary>
+        </member>
+        <member name="M:P7CreateRestApi.Controllers.UserController.GetAll">
+            <summary>
+            Récupère tous les utilisateurs.
+            </summary>
+        </member>
+        <member name="M:P7CreateRestApi.Controllers.UserController.GetById(System.String)">
+            <summary>
+            Récupère un utilisateur par son identifiant.
+            </summary>
+            <param name="id">Identifiant de l'utilisateur.</param>
+            <returns>L'utilisateur correspondant.</returns>
+        </member>
+        <member name="M:P7CreateRestApi.Controllers.UserController.Update(System.String,P7CreateRestApi.DTOs.User.UserUpdateDto)">
+            <summary>
+            Met à jour un utilisateur existant.
+            </summary>
+            <param name="id">Identifiant de l'utilisateur à mettre à jour.</param>
+            <param name="dto">Données de mise à jour.</param>
+            <returns>L'utilisateur mis à jour.</returns>
+        </member>
+        <member name="M:P7CreateRestApi.Controllers.UserController.Delete(System.String)">
+            <summary>
+            Supprime un utilisateur par son identifiant.
+            </summary>
+            <param name="id">Identifiant de l'utilisateur à supprimer.</param>
+            <returns>Code 204 si la suppression est réussie.</returns>
+        </member>
+        <member name="M:P7CreateRestApi.Controllers.UserController.GenerateResetToken(System.String)">
+            <summary>
+            Génère un token de réinitialisation de mot de passe.
+            </summary>
+            <param name="id">Identifiant de l'utilisateur.</param>
+            <returns>Le token de réinitialisation.</returns>
+        </member>
+        <member name="M:P7CreateRestApi.Controllers.UserController.ResetPassword(System.String,P7CreateRestApi.DTOs.User.ResetPasswordDto)">
+            <summary>
+            Réinitialise le mot de passe avec un token.
+            </summary>
+            <param name="id">Identifiant de l'utilisateur.</param>
+            <param name="dto">Token et nouveau mot de passe.</param>
+            <returns>Confirmation de la réinitialisation.</returns>
+        </member>
+        <member name="M:P7CreateRestApi.Controllers.UserController.ChangePassword(System.String,P7CreateRestApi.DTOs.User.ChangePasswordDto)">
+            <summary>
+            Change le mot de passe d'un utilisateur.
+            </summary>
+            <param name="id">Identifiant de l'utilisateur.</param>
+            <param name="dto">Ancien et nouveau mot de passe.</param>
+            <returns>Confirmation du changement.</returns>
+        </member>
+        <member name="T:P7CreateRestApi.DTOs.Bid.BidCreateDto">
+            <summary>
+            DTO utilisé pour créer un nouveau bid.
+            Contient uniquement les champs à renseigner par le client. (POST)
+            </summary>
+        </member>
+        <member name="T:P7CreateRestApi.DTOs.Bid.BidReadDto">
+            <summary>
+            DTO utilisé pour renvoyer les données d'un bid au client.
+            Contient toutes les informations utiles pour l'affichage. (GET)
+            </summary>
+        </member>
+        <member name="T:P7CreateRestApi.DTOs.Bid.BidUpdateDto">
+            <summary>
+            DTO utilisé pour mettre à jour un bid existant.
+            Contient uniquement les champs modifiables par le client. (PUT)
+            </summary>
+        </member>
+        <member name="T:P7CreateRestApi.DTOs.CurvePoint.CurvePointCreateDto">
+            <summary>
+            DTO utilisé pour créer un nouveau curvepoint.
+            Contient uniquement les champs à renseigner par le client. (POST)
+            </summary>
+        </member>
+        <member name="T:P7CreateRestApi.DTOs.CurvePoint.CurvePointReadDto">
+            <summary>
+            DTO utilisé pour renvoyer les données d'un curvepoint au client.
+            Contient toutes les informations utiles pour l'affichage. (GET)
+            </summary>
+        </member>
+        <member name="T:P7CreateRestApi.DTOs.CurvePoint.CurvePointUpdateDto">
+            <summary>
+            DTO utilisé pour mettre à jour un curvepoint existant.
+            Contient uniquement les champs modifiables par le client. (PUT)
+            </summary>
+        </member>
+        <member name="T:P7CreateRestApi.DTOs.Rating.RatingCreateDto">
+            <summary>
+            DTO utilisé pour créer un nouveau rating.
+            Contient uniquement les champs à renseigner par le client. (POST)
+            </summary>
+        </member>
+        <member name="T:P7CreateRestApi.DTOs.Rating.RatingReadDto">
+            <summary>
+            DTO utilisé pour renvoyer les données d'un rating au client.
+            Contient toutes les informations utiles pour l'affichage. (GET)
+            </summary>
+        </member>
+        <member name="T:P7CreateRestApi.DTOs.Rating.RatingUpdateDto">
+            <summary>
+            DTO utilisé pour mettre à jour un rating existant.
+            Contient uniquement les champs modifiables par le client. (PUT)
+            </summary>
+        </member>
+        <member name="T:P7CreateRestApi.DTOs.Rule.RuleCreateDto">
+            <summary>
+            DTO utilisé pour créer une nouvelle rule.
+            Contient uniquement les champs à renseigner par le client. (POST)
+            </summary>
+        </member>
+        <member name="T:P7CreateRestApi.DTOs.Rule.RuleReadDto">
+            <summary>
+            DTO utilisé pour renvoyer les données d'une rule au client.
+            Contient toutes les informations utiles pour l'affichage. (GET)
+            </summary>
+        </member>
+        <member name="T:P7CreateRestApi.DTOs.Rule.RuleUpdateDto">
+            <summary>
+            DTO utilisé pour mettre à jour une rule existante.
+            Contient uniquement les champs modifiables par le client. (PUT)
+            </summary>
+        </member>
+        <member name="T:P7CreateRestApi.DTOs.Trade.TradeCreateDto">
+            <summary>
+            DTO utilisé pour créer une nouvelle trade.
+            Contient uniquement les champs à renseigner par le client. (POST)
+            </summary>
+        </member>
+        <member name="T:P7CreateRestApi.DTOs.Trade.TradeReadDto">
+            <summary>
+            DTO utilisé pour renvoyer les données d'une trade au client.
+            Contient toutes les informations utiles pour l'affichage. (GET)
+            </summary>
+        </member>
+        <member name="T:P7CreateRestApi.DTOs.Trade.TradeUpdateDto">
+            <summary>
+            DTO utilisé pour mettre à jour une trade existante.
+            Contient uniquement les champs modifiables par le client. (PUT)
+            </summary>
+        </member>
+        <member name="T:P7CreateRestApi.DTOs.User.ChangePasswordDto">
+            <summary>
+            DTO utilisé pour changer le mot de passe d'un utilisateur.
+            Contient le mot de passe actuel et le nouveau mot de passe.
+            </summary>
+        </member>
+        <member name="T:P7CreateRestApi.DTOs.User.ResetPasswordDto">
+            <summary>
+            DTO utilisé pour changer le mot de passe d'un utilisateur.
+            Contient le token de réinitialisation et le nouveau mot de passe.
+            </summary>
+        </member>
+        <member name="T:P7CreateRestApi.DTOs.User.UserLoginDto">
+            <summary>
+            DTO utilisé pour qu'un utilisateur se connecte.
+            Contient uniquement les champs nécessaires à la connexion. (POST)
+            </summary>
+        </member>
+        <member name="T:P7CreateRestApi.DTOs.User.UserReadDto">
+            <summary>
+            DTO utilisé pour renvoyer les données d'un utilisateur au client.
+            Contient toutes les informations utiles pour l'affichage. (GET)
+            </summary>
+        </member>
+        <member name="T:P7CreateRestApi.DTOs.User.UserRegisterDto">
+            <summary>
+            DTO utilisé pour enregistrer un nouvel utilisateur.
+            Contient uniquement les champs à renseigner par le client. (POST)
+            </summary>
+        </member>
+        <member name="T:P7CreateRestApi.DTOs.User.UserUpdateDto">
+            <summary>
+            DTO utilisé pour mettre à jour un utilisateur existant.
+            Contient uniquement les champs modifiables par le client. (PUT)
+            </summary>
+        </member>
+        <member name="T:P7CreateRestApi.Mappings.BidProfile">
+            <summary>
+            Profil AutoMapper pour gérer les conversions entre l'entité Bid et ses DTOs.
+            </summary>
+        </member>
+        <member name="T:P7CreateRestApi.Mappings.CurvePointProfile">
+            <summary>
+            Profil AutoMapper pour gérer les conversions entre l'entité CurvePoint et ses DTOs.
+            </summary>
+        </member>
+        <member name="T:P7CreateRestApi.Mappings.RatingProfile">
+            <summary>
+            Profil AutoMapper pour gérer les conversions entre l'entité Rating et ses DTOs.
+            </summary>
+        </member>
+        <member name="T:P7CreateRestApi.Mappings.RuleProfile">
+            <summary>
+            Profil AutoMapper pour gérer les conversions entre l'entité Rule et ses DTOs.
+            </summary>
+        </member>
+        <member name="T:P7CreateRestApi.Mappings.TradeProfile">
+            <summary>
+            Profil AutoMapper pour gérer les conversions entre l'entité Trade et ses DTOs.
+            </summary>
+        </member>
+    </members>
+</doc>

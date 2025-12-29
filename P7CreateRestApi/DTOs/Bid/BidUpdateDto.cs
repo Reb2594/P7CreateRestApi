@@ -3,7 +3,7 @@
 namespace P7CreateRestApi.DTOs.Bid
 {
     /// <summary>
-    /// DTO utilisé pour mettre à jour une Bid existante.
+    /// DTO utilisé pour mettre à jour un bid existant.
     /// Contient uniquement les champs modifiables par le client. (PUT)
     /// </summary>
     public class BidUpdateDto

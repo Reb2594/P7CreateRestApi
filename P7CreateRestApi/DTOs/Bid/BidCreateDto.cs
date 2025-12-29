@@ -2,6 +2,10 @@
 
 namespace P7CreateRestApi.DTOs.Bid
 {
+    /// <summary>
+    /// DTO utilisé pour créer un nouveau bid.
+    /// Contient uniquement les champs à renseigner par le client. (POST)
+    /// </summary>
     public class BidCreateDto
     {
         [Required(ErrorMessage = "Le champ 'Compte' est obligatoire.")]
