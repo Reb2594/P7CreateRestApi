@@ -146,15 +146,18 @@ using (var scope = app.Services.CreateScope())
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "FINDEXIUM - PostTrades API v1");
+    });
 }
 
 // Middlewares
 app.UseMiddleware<GlobalExceptionMiddleware>();  
-app.UseMiddleware<RequestLoggingMiddleware>();   
 app.UseHttpsRedirection();                       
 app.UseAuthentication();                         
-app.UseAuthorization();                          
+app.UseAuthorization();
+app.UseMiddleware<RequestLoggingMiddleware>();
 
 app.MapControllers();
 app.Run();
