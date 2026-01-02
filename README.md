@@ -60,7 +60,7 @@ Il s'agissait de reprendre les missions de Stéphanie, développeuse qui a quitt
 - Documentation avec **Swagger**
 - Gestion des logs avec **Serilog**
 - **Données pré-remplies** : à la création, la base de données est automatiquement peuplée avec des données fictives pour faciliter les tests.
-- **Utilisateur administrateur** : Un utilisateur avec un rôle administrateur est créé automatiquement. Vous pouvez retrouver son login et son mot de passe dans `Program.cs`.
+- **Utilisateur administrateur** : Un utilisateur avec un rôle administrateur est créé automatiquement. Vous pouvez retrouver son login et son mot de passe dans `IdentitySeeder.cs`.
 - **Projet de tests unitaires** : Un projet de tests est inclus, couvrant les couches **Controller** et **Service** avec des tests unitaires utilisant **xUnit**.
 
 ## Sécurité & conformité
